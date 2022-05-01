@@ -1,15 +1,16 @@
 import { MenuIcon } from '@heroicons/react/solid';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../images/logo-white.svg';
 import NavItem from '../components/NavItem';
 
 interface HeaderProps {
   selected: number;
   setSelected: Dispatch<SetStateAction<number>>;
+  mainColor: string;
+  logo: string;
 }
 
-const Header = ({ selected, setSelected }: HeaderProps) => {
+const Header = ({ selected, setSelected, mainColor, logo }: HeaderProps) => {
   const [showMenu, setShowMenu] = useState(false);
 
   const toggleShowMenu = () => {
@@ -17,7 +18,10 @@ const Header = ({ selected, setSelected }: HeaderProps) => {
   };
 
   return (
-    <header className="h-auto w-full bg-indigo-900 px-4 shadow sticky top-0 z-50">
+    <header
+      className="h-auto w-full px-4 shadow sticky top-0 z-50"
+      style={{ backgroundColor: `${mainColor}` }}
+    >
       <nav className="flex items-center justify-start p-4">
         <button
           className="mr-20 lg:hidden"
@@ -27,13 +31,7 @@ const Header = ({ selected, setSelected }: HeaderProps) => {
           <MenuIcon className="h-8 w-8 text-white" />
         </button>
         <Link to="/">
-          <img
-            className="logo"
-            src={logo}
-            alt="Innoloft Logo"
-            width="150"
-            height="100"
-          />
+          <img src={logo} alt="Logo" width="100" height="50" />
         </Link>
       </nav>
       {showMenu && (
