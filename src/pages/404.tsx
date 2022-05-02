@@ -1,17 +1,6 @@
 const ErrorPage = () => {
   return (
-    <div
-      className="
-      flex
-      items-center
-      justify-center
-      w-screen
-      h-screen
-      bg-gradient-to-r
-      from-slate-600
-      to-gray-400
-    "
-    >
+    <div className="flex items-center justify-center w-screen h-screen bg-gradient-to-r from-slate-600 to-gray-400">
       <div className="px-40 py-20 bg-white rounded-md shadow-xl">
         <div className="flex flex-col items-center">
           <h1 className="font-bold text-blue-600 text-9xl">404</h1>
