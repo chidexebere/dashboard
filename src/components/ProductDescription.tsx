@@ -1,6 +1,7 @@
 import { productObject } from '../utils/types';
 import Tab from './Tab';
 import Tabs from './Tabs';
+import RichTextEditor from './TextEditor/RichTextEditor';
 
 interface Props {
   product: productObject;
@@ -12,15 +13,12 @@ const ProductDescription = ({ product }: Props) => {
     <div className="">
       <Tabs>
         <Tab className="Description">
-          <p
-            className=""
-            dangerouslySetInnerHTML={{
-              __html: description,
-            }}
-          />
+          <div className="">
+            <RichTextEditor contentFromAPI={description} />
+          </div>
         </Tab>
         <Tab className="Attributes">
-          <>
+          <div className="">
             {categories.map((category) => (
               <div key={category.id}>
                 <p>{category.name}</p>
@@ -34,7 +32,7 @@ const ProductDescription = ({ product }: Props) => {
             ))}
 
             <p>{trl.name}</p>
-          </>
+          </div>
         </Tab>
       </Tabs>
     </div>

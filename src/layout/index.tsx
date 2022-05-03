@@ -25,11 +25,11 @@ const Layout = ({ children, configData }: LayoutProps) => {
       />
       <div className="flex flex-row w-full mx-auto my-4 min-h-screen ">
         <Aside
-          className="hidden mx-4 sticky top-0 basis-1/4 lg:block"
+          className="hidden mx-4 mt-4 sticky top-0 basis-1/4 lg:block"
           setSelected={setSelected}
           selected={selected}
         />
-        <main className="w-full mx-2 p-4 bg-white rounded shadow lg:basis-3/4">
+        <main className="w-full mx-2 p-4 border-x-2 lg:basis-3/4">
           {children}
         </main>
       </div>

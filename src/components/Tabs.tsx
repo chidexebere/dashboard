@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Card from './Card';
 import Tab from './Tab';
 
 interface Props {
@@ -24,10 +25,12 @@ const Tabs = ({ children }: Props) => {
     return <Tab>{content}</Tab>;
   });
   return (
-    <>
-      <div className="tabs">{tabs}</div>
-      <div className="view">{view[activeIndex]}</div>
-    </>
+    <div className="flex flex-col gap-y-2">
+      <Card>
+        <div className="flex flex-col md:flex-row border-b-0 pl-0">{tabs}</div>
+      </Card>
+      <Card> {view[activeIndex]}</Card>
+    </div>
   );
 };
 
