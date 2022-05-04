@@ -1,8 +1,8 @@
 import Layout from '../layout';
-import { configObject } from '../utils/types';
+import { ConfigObject } from '../utils/types';
 
 interface Props {
-  configData: configObject;
+  configData: ConfigObject;
 }
 
 const Home = ({ configData }: Props) => {

@@ -5,15 +5,13 @@ import ErrorPage from './pages/404';
 import Home from './pages/home';
 import Loading from './pages/loading';
 import Product from './pages/product';
-import { configObject } from './utils/types';
+import { ConfigObject } from './utils/types';
 
 function App() {
-  const { isLoading, isError, data } = useQuery<configObject>(
+  const { isLoading, isError, data } = useQuery<ConfigObject>(
     'appConfig',
     getAppConfig,
   );
-
-  // console.log(error);
 
   if (isError) {
     return <ErrorPage />;
@@ -26,7 +24,7 @@ function App() {
   return (
     <Router>
       {data && (
-        <div className="App">
+        <div className="bg-gray-100">
           <Routes>
             <Route path="/" element={<Home configData={data} />} />
             <Route path="product" element={<Product configData={data} />} />

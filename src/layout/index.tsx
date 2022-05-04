@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { configObject } from '../utils/types';
+import { ConfigObject } from '../utils/types';
 import Aside from './Aside';
 import Header from './Header';
 
 interface LayoutProps {
   children: React.ReactNode;
-  configData: configObject;
+  configData: ConfigObject;
 }
 
 const Layout = ({ children, configData }: LayoutProps) => {
@@ -16,7 +16,7 @@ const Layout = ({ children, configData }: LayoutProps) => {
   // console.log(selected);
 
   return (
-    <div className="bg-gray-100 min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Header
         setSelected={setSelected}
         selected={selected}

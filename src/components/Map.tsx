@@ -1,9 +1,9 @@
-import { productObject } from '../utils/types';
+import { ProductObject } from '../utils/types';
 import { LocationMarkerIcon } from '@heroicons/react/solid';
 import Card from './Card';
 
 interface Props {
-  product: productObject;
+  product: ProductObject;
 }
 
 const Map = ({ product }: Props) => {

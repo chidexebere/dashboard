@@ -1,24 +1,26 @@
 import { useQuery } from 'react-query';
 import cx from 'classnames';
-import { getProduct } from '../api';
+import { getProduct, getTrl } from '../api';
 import Map from '../components/Map';
 import ProductDescription from '../components/ProductDescription';
 import ProductInfo from '../components/ProductInfo';
 import UserInfo from '../components/UserInfo';
 import Layout from '../layout';
-import { configObject, productObject } from '../utils/types';
+import { ConfigObject, ProductObject, TrlObject } from '../utils/types';
 import Loading from './loading';
 
 interface Props {
-  configData: configObject;
+  configData: ConfigObject;
 }
 
 const Product = ({ configData }: Props) => {
   const { hasUserSection } = configData;
-  const { isLoading, isError, data } = useQuery<productObject>(
+  const { isLoading, isError, data } = useQuery<ProductObject>(
     'product',
     getProduct,
   );
+
+  const { data: trl } = useQuery<TrlObject[]>('trl', getTrl);
 
   if (isError) {
     return (
@@ -54,7 +56,7 @@ const Product = ({ configData }: Props) => {
             <UserInfo product={data} />
           </div>
           <div className="lg:col-span-2 ...">
-            <ProductDescription product={data} />
+            <ProductDescription product={data} trlList={trl} />
           </div>
           <div className="...">
             <Map product={data} />

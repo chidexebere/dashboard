@@ -1,11 +1,11 @@
-export type configObject = {
+export type ConfigObject = {
   id: number;
   logo: string;
   mainColor: string;
   hasUserSection: boolean;
 };
 
-export type productObject = {
+export type ProductObject = {
   id: number;
   name: string;
   description: string;
@@ -14,12 +14,7 @@ export type productObject = {
     id: number;
     name: string;
   };
-  categories: [
-    {
-      id: number;
-      name: string;
-    },
-  ];
+  categories: ListObject[];
   implementationEffortText: string;
   investmentEffort: string;
   trl: {
@@ -59,10 +54,16 @@ export type productObject = {
       cityRegion: string;
     };
   };
-  businessModels: [
-    {
-      id: number;
-      name: string;
-    },
-  ];
+  businessModels: ListObject[];
+};
+
+export type ListObject = {
+  id: number;
+  name: string;
+};
+
+export type TrlObject = {
+  id: number;
+  name: string;
+  description: string;
 };

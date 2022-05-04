@@ -1,8 +1,8 @@
-import { productObject } from '../utils/types';
+import { ProductObject } from '../utils/types';
 import Card from './Card';
 
 interface Props {
-  product: productObject;
+  product: ProductObject;
 }
 
 const ProductInfo = ({ product }: Props) => {

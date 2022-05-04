@@ -1,13 +1,16 @@
-import { productObject } from '../utils/types';
+import { ProductObject, TrlObject } from '../utils/types';
+import Dropdown from './Dropdown';
+import { ListGroup } from './List';
 import Tab from './Tab';
 import Tabs from './Tabs';
 import RichTextEditor from './TextEditor/RichTextEditor';
 
 interface Props {
-  product: productObject;
+  product: ProductObject;
+  trlList?: TrlObject[];
 }
 
-const ProductDescription = ({ product }: Props) => {
+const ProductDescription = ({ product, trlList }: Props) => {
   const { description, categories, businessModels, trl } = product;
   return (
     <div className="">
@@ -18,20 +21,19 @@ const ProductDescription = ({ product }: Props) => {
           </div>
         </Tab>
         <Tab className="Attributes">
-          <div className="">
-            {categories.map((category) => (
-              <div key={category.id}>
-                <p>{category.name}</p>
+          <div className="p-2 bg-white normal-case">
+            <ListGroup title="Categories" lists={categories} />
+            <hr />
+            <ListGroup title="Business Models" lists={businessModels} />
+            <hr />
+            {trlList && (
+              <div className="my-2 flex flex-col">
+                <h2 className="text-left font-semibold text-slate-900 mb-4">
+                  TRL
+                </h2>
+                <Dropdown value={trl.name} options={trlList} />
               </div>
-            ))}
-
-            {businessModels.map((model) => (
-              <div key={model.id}>
-                <p>{model.name}</p>
-              </div>
-            ))}
-
-            <p>{trl.name}</p>
+            )}
           </div>
         </Tab>
       </Tabs>
