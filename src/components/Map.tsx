@@ -1,4 +1,3 @@
-import { ProductObject } from '../utils/types';
 import { LocationMarkerIcon } from '@heroicons/react/solid';
 import Card from './Card';
 

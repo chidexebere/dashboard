@@ -6,7 +6,6 @@ import ProductDescription from '../components/ProductDescription';
 import ProductInfo from '../components/ProductInfo';
 import UserInfo from '../components/UserInfo';
 import Layout from '../layout';
-import { ConfigObject, ProductObject, TrlObject } from '../utils/types';
 import Loading from './loading';
 
 interface Props {
@@ -24,7 +23,7 @@ const Product = ({ configData }: Props) => {
 
   if (isError) {
     return (
-      <Layout configData={configData}>
+      <Layout>
         <div className="flex items-center justify-center">
           <h4 className="mt-20 text-xl font-bold text-center text-gray-800 md:text-2xl">
             <span className="text-red-500">Oops!</span> Something went wrong,
@@ -37,14 +36,14 @@ const Product = ({ configData }: Props) => {
 
   if (isLoading) {
     return (
-      <Layout configData={configData}>
+      <Layout>
         <Loading />
       </Layout>
     );
   }
 
   return (
-    <Layout configData={configData}>
+    <Layout>
       {data && (
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
           <div

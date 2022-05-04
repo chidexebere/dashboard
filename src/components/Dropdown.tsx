@@ -1,6 +1,5 @@
 import React, { ReactNode, useState } from 'react';
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/solid';
-import { TrlObject } from '../utils/types';
 
 interface DropdownOptionProps {
   value: string;
@@ -113,17 +112,3 @@ const Dropdown = ({ value, options, icon }: DropdownProps) => {
 };
 
 export default Dropdown;
-
-// function App() {
-//   return (
-//     <div class="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
-//       <div class="relative py-3 sm:max-w-xl sm:mx-auto">
-//         <div className="w-64">
-//           <Select options={['Mick Poulaz', 'Julien Schiano']} />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default App;

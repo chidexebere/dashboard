@@ -1,4 +1,3 @@
-import { ProductObject, TrlObject } from '../utils/types';
 import Dropdown from './Dropdown';
 import { ListGroup } from './List';
 import Tab from './Tab';

@@ -1,7 +1,5 @@
-import { ListObject } from '../utils/types';
-
 // change the APP_ID for different configurations
-const APP_ID = 1;
+const APP_ID = 2;
 const PRODUCT_ID = 6781;
 
 const config: string = process.env.REACT_APP_CONFIG_URL as string;

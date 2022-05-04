@@ -1,6 +1,5 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import { PlusIcon, XIcon } from '@heroicons/react/outline';
-import { ListObject } from '../utils/types';
 import { useMutation } from 'react-query';
 import { addList, editList } from '../api';
 

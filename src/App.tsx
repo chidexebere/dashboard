@@ -5,7 +5,6 @@ import ErrorPage from './pages/404';
 import Home from './pages/home';
 import Loading from './pages/loading';
 import Product from './pages/product';
-import { ConfigObject } from './utils/types';
 
 function App() {
   const { isLoading, isError, data } = useQuery<ConfigObject>(

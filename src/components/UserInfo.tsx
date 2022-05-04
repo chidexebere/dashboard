@@ -1,4 +1,3 @@
-import { ProductObject } from '../utils/types';
 import Card from './Card';
 
 interface Props {
