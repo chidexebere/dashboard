@@ -1,11 +1,11 @@
-export type ConfigObject = {
+type ConfigObject = {
   id: number;
   logo: string;
   mainColor: string;
   hasUserSection: boolean;
 };
 
-export type ProductObject = {
+type ProductObject = {
   id: number;
   name: string;
   description: string;
@@ -57,12 +57,12 @@ export type ProductObject = {
   businessModels: ListObject[];
 };
 
-export type ListObject = {
+type ListObject = {
   id: number;
   name: string;
 };
 
-export type TrlObject = {
+type TrlObject = {
   id: number;
   name: string;
   description: string;
