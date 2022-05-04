@@ -1,17 +1,19 @@
 import { MenuIcon } from '@heroicons/react/solid';
 import { Dispatch, SetStateAction, useState } from 'react';
+import { useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
 import NavItem from '../components/NavItem';
 
 interface HeaderProps {
   selected: number;
   setSelected: Dispatch<SetStateAction<number>>;
-  mainColor: string;
-  logo: string;
 }
 
-const Header = ({ selected, setSelected, mainColor, logo }: HeaderProps) => {
+const Header = ({ selected, setSelected }: HeaderProps) => {
   const [showMenu, setShowMenu] = useState(false);
+
+  const queryClient = useQueryClient();
+  const appConfigData = queryClient.getQueryData<ConfigObject>('appConfig');
 
   const toggleShowMenu = () => {
     setShowMenu(!showMenu);
@@ -20,7 +22,7 @@ const Header = ({ selected, setSelected, mainColor, logo }: HeaderProps) => {
   return (
     <header
       className="h-auto w-full px-4 shadow sticky top-0 z-50"
-      style={{ backgroundColor: `${mainColor}` }}
+      style={{ backgroundColor: `${appConfigData?.mainColor}` }}
     >
       <nav className="flex items-center justify-start p-4">
         <button
@@ -31,7 +33,7 @@ const Header = ({ selected, setSelected, mainColor, logo }: HeaderProps) => {
           <MenuIcon className="h-8 w-8 text-white" />
         </button>
         <Link to="/">
-          <img src={logo} alt="Logo" width="100" height="50" />
+          <img src={appConfigData?.logo} alt="Logo" width="100" height="50" />
         </Link>
       </nav>
       {showMenu && (
