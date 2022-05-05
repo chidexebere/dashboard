@@ -67,3 +67,13 @@ type TrlObject = {
   name: string;
   description: string;
 };
+
+type selectNavAction = {
+  type: SELECT_NAV;
+  payload: number;
+};
+
+// interface RootState {
+//   configID: number;
+//   selectedNav: number;
+// }

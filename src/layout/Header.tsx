@@ -1,16 +1,17 @@
-import { MenuIcon } from '@heroicons/react/solid';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import { useQueryClient } from 'react-query';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { selectNav } from '../appState/slice';
+import { RootState } from '../appState/store';
 import NavItem from '../components/NavItem';
+import { MenuIcon } from '@heroicons/react/solid';
 
-interface HeaderProps {
-  selected: number;
-  setSelected: Dispatch<SetStateAction<number>>;
-}
-
-const Header = ({ selected, setSelected }: HeaderProps) => {
+const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
+
+  const selectedNav = useSelector((state: RootState) => state.app.selectedNav);
+  const dispatch = useDispatch();
 
   const queryClient = useQueryClient();
   const appConfigData = queryClient.getQueryData<ConfigObject>('appConfig');
@@ -40,14 +41,14 @@ const Header = ({ selected, setSelected }: HeaderProps) => {
         <ul>
           <NavItem
             path="/"
-            isSelected={selected === 0}
-            handleSelected={() => setSelected(0)}
+            isSelected={selectedNav === 0}
+            handleSelected={() => dispatch(selectNav(0))}
             text="Home"
           />
           <NavItem
             path="/product"
-            isSelected={selected === 1}
-            handleSelected={() => setSelected(1)}
+            isSelected={selectedNav === 1}
+            handleSelected={() => dispatch(selectNav(1))}
             text="Product"
           />
         </ul>

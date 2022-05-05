@@ -6,7 +6,6 @@ import {
   AtomicBlockUtils,
   DraftEditorCommand,
   convertToRaw,
-  convertFromRaw,
   ContentState,
 } from 'draft-js';
 import 'draft-js/dist/Draft.css';
@@ -14,7 +13,7 @@ import { linkDecorator } from './Link';
 import { mediaBlockRenderer } from './Media';
 import './style.css';
 
-const TEXT_EDITOR_ITEM = 'draft-js-example-item';
+// const TEXT_EDITOR_ITEM = 'draft-js-example-item';
 
 interface Props {
   contentFromAPI: string;
@@ -31,7 +30,8 @@ const RichTextEditor = ({ contentFromAPI }: Props) => {
 
   const handleSave = () => {
     const data = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
-    localStorage.setItem(TEXT_EDITOR_ITEM, data);
+    console.log(data);
+    // localStorage.setItem(TEXT_EDITOR_ITEM, data);
   };
 
   const handleInsertImage = () => {
