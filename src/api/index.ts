@@ -1,5 +1,3 @@
-// change the APP_ID for different configurations
-const APP_ID = 2;
 const PRODUCT_ID = 6781;
 
 const config: string = process.env.REACT_APP_CONFIG_URL as string;
@@ -34,7 +32,7 @@ const postData = async (endpoint: string, requestBody: string) => {
   return jsonResponse;
 };
 
-const editData = async (endpoint: string, requestBody: ListObject) => {
+const editData = async (endpoint: string, requestBody: ListObject | string) => {
   const postRequest = fetch(endpoint, {
     method: 'PUT',
     headers: {
@@ -52,7 +50,7 @@ const editData = async (endpoint: string, requestBody: ListObject) => {
 };
 
 // Get APP configuration
-const getAppConfig = async () => {
+const getAppConfig = async (APP_ID: number) => {
   return await fetchData(`${config}/${APP_ID}/`);
 };
 
@@ -66,14 +64,14 @@ const getTrl = async () => {
   return await fetchData(trl);
 };
 
-// Add list
-const addList = async (name: string) => {
+// Add Product
+const addProduct = async (name: string) => {
   return await postData(`${product}/${PRODUCT_ID}/`, name);
 };
 
-// Add list
-const editList = async (list: ListObject) => {
+// Edit Product
+const editProduct = async (list: ListObject | string) => {
   return await editData(`${product}/${PRODUCT_ID}/`, list);
 };
 
-export { postData, getAppConfig, getProduct, getTrl, addList, editList };
+export { getAppConfig, getProduct, getTrl, addProduct, editProduct };

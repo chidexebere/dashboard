@@ -12,15 +12,14 @@ import 'draft-js/dist/Draft.css';
 import { linkDecorator } from './Link';
 import { mediaBlockRenderer } from './Media';
 import './style.css';
-
-// const TEXT_EDITOR_ITEM = 'draft-js-example-item';
+import { useMutation } from 'react-query';
+import { editProduct } from '../../api';
 
 interface Props {
   contentFromAPI: string;
 }
 
 const RichTextEditor = ({ contentFromAPI }: Props) => {
-  // const data = localStorage.getItem(TEXT_EDITOR_ITEM);
   const content = ContentState.createFromText(contentFromAPI);
   const initialState = contentFromAPI
     ? EditorState.createWithContent(content)
@@ -28,10 +27,13 @@ const RichTextEditor = ({ contentFromAPI }: Props) => {
   const [editorState, setEditorState] =
     React.useState<EditorState>(initialState);
 
+  const editDescription = useMutation(async (des: string) => {
+    await editProduct(des);
+  });
+
   const handleSave = () => {
     const data = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
-    console.log(data);
-    // localStorage.setItem(TEXT_EDITOR_ITEM, data);
+    editDescription.mutate(data);
   };
 
   const handleInsertImage = () => {

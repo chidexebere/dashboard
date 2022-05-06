@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import { PlusIcon, XIcon } from '@heroicons/react/outline';
 import { useMutation } from 'react-query';
-import { addList, editList } from '../api';
+import { addProduct, editProduct } from '../api';
 
 const inputClass = `form-control block px-3 py-1.5 text-sm text-gray-500 bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-500 focus:outline-none font-medium`;
 
@@ -81,7 +81,7 @@ const CreateList = ({ newLists, setNewLists }: CreateListProps) => {
   const [name, setName] = useState('');
 
   const addNewList = useMutation(async (name: string) => {
-    await addList(name);
+    await addProduct(name);
   });
 
   const toggleForm = () => {
@@ -136,7 +136,7 @@ const List = ({ listId, name }: ListProps) => {
   const [newName, setNewName] = useState(name);
 
   const editNewList = useMutation(async (list: ListObject) => {
-    await editList(list);
+    await editProduct(list);
   });
 
   const handleEditing = () => {
