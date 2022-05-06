@@ -6,15 +6,21 @@ import { selectNav } from '../appState/slice';
 import { RootState } from '../appState/store';
 import NavItem from '../components/NavItem';
 import { MenuIcon } from '@heroicons/react/solid';
+import Switch from '../components/Switch';
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
 
+  const { ON } = useSelector((state: RootState) => state.app);
+  const APP_ID = ON === true ? 1 : 2;
+  const queryClient = useQueryClient();
+  const appConfigData = queryClient.getQueryData<ConfigObject>([
+    'appConfig',
+    APP_ID,
+  ]);
+
   const selectedNav = useSelector((state: RootState) => state.app.selectedNav);
   const dispatch = useDispatch();
-
-  const queryClient = useQueryClient();
-  const appConfigData = queryClient.getQueryData<ConfigObject>('appConfig');
 
   const toggleShowMenu = () => {
     setShowMenu(!showMenu);
@@ -25,17 +31,21 @@ const Header = () => {
       className="h-auto w-full px-4 shadow sticky top-0 z-50"
       style={{ backgroundColor: `${appConfigData?.mainColor}` }}
     >
-      <nav className="flex items-center justify-start p-4">
+      <nav className="flex items-center p-4 lg:justify-between">
         <button
-          className="mr-20 lg:hidden"
+          className="basis-1/6 lg:hidden"
           type="button"
           onClick={toggleShowMenu}
         >
           <MenuIcon className="h-8 w-8 text-white" />
         </button>
-        <Link to="/">
+        <Link to="/" className="basis-4/6 sm:basis-5/6">
           <img src={appConfigData?.logo} alt="Logo" width="100" height="50" />
         </Link>
+        <div className="basis-1/6 items-end sm:basis-0 flex items-center gap-x-1">
+          <span className="text-white hidden sm:block">APP</span>
+          <Switch />
+        </div>
       </nav>
       {showMenu && (
         <ul>
