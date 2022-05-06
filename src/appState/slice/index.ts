@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  configID: 1,
+  ON: true,
   selectedNav: 0,
 };
 
@@ -9,8 +9,8 @@ const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    selectConfig(state, action) {
-      state.configID = action.payload;
+    toggleConfig(state) {
+      state.ON = !state.ON;
     },
     selectNav(state, action) {
       state.selectedNav = action.payload;
@@ -18,6 +18,6 @@ const appSlice = createSlice({
   },
 });
 
-export const { selectConfig, selectNav } = appSlice.actions;
+export const { toggleConfig, selectNav } = appSlice.actions;
 
 export default appSlice.reducer;
