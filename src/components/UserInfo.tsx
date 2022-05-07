@@ -13,6 +13,7 @@ const UserInfo = ({ product }: Props) => {
           className="rounded-full w-32 mb-4 mx-auto"
           src={user.profilePicture}
           alt="user profile picture"
+          loading="lazy"
           width="200"
           height="200"
         />

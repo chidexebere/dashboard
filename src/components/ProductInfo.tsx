@@ -22,7 +22,13 @@ const ProductInfo = ({ product }: Props) => {
     <section className="flex flex-col gap-y-2">
       <Card>
         <div className="flex justify-center">
-          <img src={picture} alt="product picture" width="300" height="300" />
+          <img
+            src={picture}
+            alt="product picture"
+            loading="lazy"
+            width="300"
+            height="300"
+          />
         </div>
       </Card>
       <Card>

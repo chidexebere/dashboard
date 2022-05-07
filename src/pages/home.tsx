@@ -18,7 +18,13 @@ const Home = ({ configData }: Props) => {
   return (
     <Layout>
       <div className="mt-20 flex justify-center">
-        <img src={logo} alt="Big Logo" width="400" height="400" />
+        <img
+          src={logo}
+          alt="Big Logo"
+          loading="lazy"
+          width="400"
+          height="400"
+        />
       </div>
     </Layout>
   );

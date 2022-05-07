@@ -40,7 +40,13 @@ const Header = () => {
           <MenuIcon className="h-8 w-8 text-white" />
         </button>
         <Link to="/" className="basis-4/6 sm:basis-5/6">
-          <img src={appConfigData?.logo} alt="Logo" width="100" height="50" />
+          <img
+            src={appConfigData?.logo}
+            alt="Logo"
+            loading="lazy"
+            width="100"
+            height="50"
+          />
         </Link>
         <div className="basis-1/6 items-end sm:basis-0 flex items-center gap-x-1">
           <span className="text-white hidden sm:block">APP</span>
