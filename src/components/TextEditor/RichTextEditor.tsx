@@ -11,9 +11,8 @@ import {
 import 'draft-js/dist/Draft.css';
 import { linkDecorator } from './Link';
 import { mediaBlockRenderer } from './Media';
+import { useEditProduct } from '../../api/hooks';
 import './style.css';
-import { useMutation } from 'react-query';
-import { editProduct } from '../../api';
 
 interface Props {
   contentFromAPI: string;
@@ -27,9 +26,7 @@ const RichTextEditor = ({ contentFromAPI }: Props) => {
   const [editorState, setEditorState] =
     React.useState<EditorState>(initialState);
 
-  const editDescription = useMutation(async (des: string) => {
-    await editProduct(des);
-  });
+  const editDescription = useEditProduct();
 
   const handleSave = () => {
     const data = JSON.stringify(convertToRaw(editorState.getCurrentContent()));

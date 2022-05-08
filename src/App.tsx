@@ -1,7 +1,6 @@
-import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { getAppConfig } from './api';
+import { useAppConfig } from './api/hooks';
 import { RootState } from './appState/store';
 import ErrorPage from './pages/404';
 import Home from './pages/home';
@@ -12,10 +11,7 @@ function App() {
   const { ON } = useSelector((state: RootState) => state.app);
   const APP_ID = ON === true ? 1 : 2;
 
-  const { isLoading, isError, data } = useQuery<ConfigObject>(
-    ['appConfig', APP_ID],
-    () => getAppConfig(APP_ID),
-  );
+  const { isLoading, isError, data } = useAppConfig(APP_ID);
 
   if (isError) {
     return <ErrorPage />;

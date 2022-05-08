@@ -1,12 +1,11 @@
-import { useQuery } from 'react-query';
 import cx from 'classnames';
-import { getProduct, getTrl } from '../api';
 import Map from '../components/Map';
 import ProductDescription from '../components/ProductDescription';
 import ProductInfo from '../components/ProductInfo';
 import UserInfo from '../components/UserInfo';
 import Layout from '../layout';
 import Loading from './loading';
+import { useProduct, useTrl } from '../api/hooks';
 
 interface Props {
   configData: ConfigObject;
@@ -14,12 +13,9 @@ interface Props {
 
 const Product = ({ configData }: Props) => {
   const { hasUserSection } = configData;
-  const { isLoading, isError, data } = useQuery<ProductObject>(
-    'product',
-    getProduct,
-  );
+  const { isLoading, isError, data } = useProduct();
 
-  const { data: trl } = useQuery<TrlObject[]>('trl', getTrl);
+  const { data: trl } = useTrl();
 
   if (isError) {
     return (

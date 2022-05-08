@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useQueryClient } from 'react-query';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { selectNav } from '../appState/slice';
@@ -7,17 +6,14 @@ import { RootState } from '../appState/store';
 import NavItem from '../components/NavItem';
 import { MenuIcon } from '@heroicons/react/solid';
 import Switch from '../components/Switch';
+import { useCachedAppConfig } from '../api/hooks';
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
 
   const { ON } = useSelector((state: RootState) => state.app);
   const APP_ID = ON === true ? 1 : 2;
-  const queryClient = useQueryClient();
-  const appConfigData = queryClient.getQueryData<ConfigObject>([
-    'appConfig',
-    APP_ID,
-  ]);
+  const appConfigData = useCachedAppConfig(APP_ID);
 
   const selectedNav = useSelector((state: RootState) => state.app.selectedNav);
   const dispatch = useDispatch();

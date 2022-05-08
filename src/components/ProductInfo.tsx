@@ -1,5 +1,5 @@
-import { useQueryClient } from 'react-query';
 import { useSelector } from 'react-redux';
+import { useCachedAppConfig } from '../api/hooks';
 import { RootState } from '../appState/store';
 import Card from './Card';
 
@@ -12,11 +12,7 @@ const ProductInfo = ({ product }: Props) => {
 
   const { ON } = useSelector((state: RootState) => state.app);
   const APP_ID = ON === true ? 1 : 2;
-  const queryClient = useQueryClient();
-  const appConfigData = queryClient.getQueryData<ConfigObject>([
-    'appConfig',
-    APP_ID,
-  ]);
+  const appConfigData = useCachedAppConfig(APP_ID);
 
   return (
     <section className="flex flex-col gap-y-2">
