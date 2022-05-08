@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { selectNav } from '../appState/slice';
 import { RootState } from '../appState/store';
 import NavItem from '../components/NavItem';
 import { MenuIcon } from '@heroicons/react/solid';
@@ -16,7 +15,6 @@ const Header = () => {
   const appConfigData = useCachedAppConfig(APP_ID);
 
   const selectedNav = useSelector((state: RootState) => state.app.selectedNav);
-  const dispatch = useDispatch();
 
   const toggleShowMenu = () => {
     setShowMenu(!showMenu);
@@ -51,16 +49,10 @@ const Header = () => {
       </nav>
       {showMenu && (
         <ul>
-          <NavItem
-            path="/"
-            isSelected={selectedNav === 0}
-            handleSelected={() => dispatch(selectNav(0))}
-            text="Home"
-          />
+          <NavItem path="/" isSelected={selectedNav === 0} text="Home" />
           <NavItem
             path="/product"
             isSelected={selectedNav === 1}
-            handleSelected={() => dispatch(selectNav(1))}
             text="Product"
           />
         </ul>

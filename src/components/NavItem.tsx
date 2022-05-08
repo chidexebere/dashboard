@@ -5,19 +5,12 @@ interface NavItemProps {
   children?: React.ReactNode;
   path: string;
   isSelected: boolean;
-  handleSelected: () => void;
   text: string;
 }
 
-const NavItem = ({
-  children,
-  path,
-  isSelected,
-  handleSelected,
-  text,
-}: NavItemProps) => {
+const NavItem = ({ children, path, isSelected, text }: NavItemProps) => {
   return (
-    <li onClick={handleSelected}>
+    <li>
       <Link
         to={path}
         className="py-2 px-3 w-full flex items-center focus:outline-none focus-visible:underline"

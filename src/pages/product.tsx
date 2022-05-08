@@ -1,3 +1,6 @@
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { selectNav } from '../appState/slice';
 import cx from 'classnames';
 import Map from '../components/Map';
 import ProductDescription from '../components/ProductDescription';
@@ -16,6 +19,12 @@ const Product = ({ configData }: Props) => {
   const { isLoading, isError, data } = useProduct();
 
   const { data: trl } = useTrl();
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(selectNav(1));
+  }, []);
 
   if (isError) {
     return (

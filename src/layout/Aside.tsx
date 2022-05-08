@@ -1,8 +1,7 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import cx from 'classnames';
 import { HomeIcon, ChipIcon } from '@heroicons/react/outline';
 import NavItem from '../components/NavItem';
-import { selectNav } from '../appState/slice';
 import { RootState } from '../appState/store';
 import { useCachedAppConfig } from '../api/hooks';
 
@@ -12,7 +11,6 @@ const Aside = () => {
   const appConfigData = useCachedAppConfig(APP_ID);
 
   const selectedNav = useSelector((state: RootState) => state.app.selectedNav);
-  const dispatch = useDispatch();
 
   return (
     <aside className="hidden mx-4 mt-4 sticky top-0 basis-1/4 lg:block">
@@ -25,12 +23,7 @@ const Aside = () => {
           }}
         />
         <ul className="relative">
-          <NavItem
-            path="/"
-            isSelected={selectedNav === 0}
-            handleSelected={() => dispatch(selectNav(0))}
-            text="Home"
-          >
+          <NavItem path="/" isSelected={selectedNav === 0} text="Home">
             <HomeIcon
               className={cx(
                 'h-6 w-6 transition-all ease-out transition-medium',
@@ -41,7 +34,6 @@ const Aside = () => {
           <NavItem
             path="/product"
             isSelected={selectedNav === 1}
-            handleSelected={() => dispatch(selectNav(1))}
             text="Product"
           >
             <ChipIcon
