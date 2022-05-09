@@ -1,46 +1,69 @@
-# Getting Started with Create React App
+## Innoloft Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A new dashboard with which you can display and edit product information.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+1. Layout: Header, Aside and Main
 
-### `yarn start`
+- Header contains Innoloft Logo, a toggle switch to switch between APP 1 & 2 and a menu icon that displays the navigation on mobile view.
+- Aside contains navigation that is displayed from the desktop view.
+- Main contains the main section.
 
-Runs the app in the development mode.\
+2. Navigation contains home and product navigation.
+
+3. Pages: Home and Product
+
+- Home page displays only the logo.
+- Product page displays product information: Product info, Product description, User info (only displays when the `hasUserSection` from the app config is `true` ) and Map.
+
+4. Editing Product: only the following product information can be edited. Note this does not save on refresh because the API does not save the request.
+
+- Description
+- Attributes
+
+5. Creating Product: only the following product information can be created. Note this does not save on refresh because the API does not save the request.
+
+- Attributes
+
+6. White-Labeling
+   This is done with configurations on the `.env` file and on the UI with the toggle switch.
+
+## Installation
+
+You would need to have [Node.js](https://nodejs.org/en/) and [yarn](https://yarnpkg.com/) installed.
+
+To install dependencies, you can run:
+
+```bash
+yarn
+```
+
+## Running the project
+
+To run the project locally, in the project directory, run:
+
+```bash
+yarn start
+```
+
+Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Testing
 
-### `yarn test`
+To run test locally, in the project directory, run:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+yarn test
+```
 
-### `yarn build`
+## Technologies used
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- React and TypeScript: used to build the UI components
+- Tailwind CSS: for styling
+- Redux (Redux toolkit): for managing app state
+- React Query: for managing server state
+- React testing library, React hooks testing library, MSW : for testing
+- Draftjs: for building a rich text editor on the product description tab
+- Eslint for linting and Prettier for code formating
