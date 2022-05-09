@@ -1,6 +1,10 @@
 const Loading = () => {
   return (
-    <div className="mt-20 flex justify-center items-center">
+    <div
+      className="mt-20 flex justify-center items-center"
+      role="alert"
+      aria-label="loading"
+    >
       <div>
         <div
           style={{ borderTopColor: 'transparent' }}
