@@ -9,12 +9,6 @@ button:hover {
   color: #000;
 }
 
-.texteditor {
-  background-color: white;
-  font-size: 0.75rem; 
-  line-height: 1rem;
-}
-
 .DraftEditor-root {
   border: 1px solid #eee;
   margin-top: 1rem;

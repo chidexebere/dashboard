@@ -93,60 +93,77 @@ const RichTextEditor = ({ contentFromAPI }: Props) => {
   };
 
   return (
-    <div className="texteditor">
-      <button onMouseDown={(e) => handleBlockClick(e, 'header-one')}>H1</button>
-      <button onMouseDown={(e) => handleBlockClick(e, 'header-two')}>H2</button>
-      <button onMouseDown={(e) => handleBlockClick(e, 'header-three')}>
-        H3
-      </button>
-      <button onMouseDown={(e) => handleBlockClick(e, 'unstyled')}>
-        Normal
-      </button>
-      <button onMouseDown={(e) => handleTogggleClick(e, 'BOLD')}>bold</button>
-      <button onMouseDown={(e) => handleTogggleClick(e, 'UNDERLINE')}>
-        underline
-      </button>
-      <button onMouseDown={(e) => handleTogggleClick(e, 'ITALIC')}>
-        italic
-      </button>
-      <button onMouseDown={(e) => handleTogggleClick(e, 'STRIKETHROUGH')}>
-        strikthrough
-      </button>
-      <button onMouseDown={(e) => handleBlockClick(e, 'ordered-list-item')}>
-        Ordered List
-      </button>
-      <button onMouseDown={(e) => handleBlockClick(e, 'unordered-list-item')}>
-        Unordered List
-      </button>
-      <button
-        onMouseDown={(e) => {
-          e.preventDefault();
-          handleInsertImage();
-        }}
-      >
-        image
-      </button>
-      <button
-        disabled={editorState.getSelection().isCollapsed()}
-        onMouseDown={(e) => {
-          e.preventDefault();
-          handleAddLink();
-        }}
-      >
-        link
-      </button>
-      <button
-        disabled={editorState.getUndoStack().size <= 0}
-        onMouseDown={() => setEditorState(EditorState.undo(editorState))}
-      >
-        undo
-      </button>
-      <button
-        disabled={editorState.getRedoStack().size <= 0}
-        onMouseDown={() => setEditorState(EditorState.redo(editorState))}
-      >
-        redo
-      </button>
+    <div className="text-xs bg-white">
+      <div className="flex flex-col">
+        <div>
+          <button onMouseDown={(e) => handleBlockClick(e, 'header-one')}>
+            H1
+          </button>
+          <button onMouseDown={(e) => handleBlockClick(e, 'header-two')}>
+            H2
+          </button>
+          <button onMouseDown={(e) => handleBlockClick(e, 'header-three')}>
+            H3
+          </button>
+          <button onMouseDown={(e) => handleBlockClick(e, 'unstyled')}>
+            Normal
+          </button>
+          <button onMouseDown={(e) => handleTogggleClick(e, 'BOLD')}>
+            bold
+          </button>
+          <button onMouseDown={(e) => handleTogggleClick(e, 'UNDERLINE')}>
+            underline
+          </button>
+          <button onMouseDown={(e) => handleTogggleClick(e, 'ITALIC')}>
+            italic
+          </button>
+          <button onMouseDown={(e) => handleTogggleClick(e, 'STRIKETHROUGH')}>
+            strikthrough
+          </button>
+          <button onMouseDown={(e) => handleBlockClick(e, 'ordered-list-item')}>
+            Ordered List
+          </button>
+          <button
+            onMouseDown={(e) => handleBlockClick(e, 'unordered-list-item')}
+          >
+            Unordered List
+          </button>
+          <button
+            onMouseDown={(e) => {
+              e.preventDefault();
+              handleInsertImage();
+            }}
+          >
+            image
+          </button>
+          <button
+            disabled={editorState.getSelection().isCollapsed()}
+            onMouseDown={(e) => {
+              e.preventDefault();
+              handleAddLink();
+            }}
+          >
+            link
+          </button>
+        </div>
+        <div className="flex justify-between">
+          <button
+            className="text-sky-500"
+            disabled={editorState.getUndoStack().size <= 0}
+            onMouseDown={() => setEditorState(EditorState.undo(editorState))}
+          >
+            undo
+          </button>
+          <button
+            className="text-sky-500"
+            disabled={editorState.getRedoStack().size <= 0}
+            onMouseDown={() => setEditorState(EditorState.redo(editorState))}
+          >
+            redo
+          </button>
+        </div>
+      </div>
+
       <Editor
         editorState={editorState}
         onChange={setEditorState}
