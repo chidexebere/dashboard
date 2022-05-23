@@ -28,6 +28,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home configData={data} />} />
             <Route path="product" element={<Product configData={data} />} />
+            <Route path="*" element={<ErrorPage />} />
           </Routes>
         </div>
       )}
