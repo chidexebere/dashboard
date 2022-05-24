@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import { PlusIcon, XIcon } from '@heroicons/react/outline';
 import { useAddProduct, useEditProduct } from '../api/hooks';
 
-const inputClass = `form-control block px-3 py-1.5 text-sm text-gray-500 bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-500 focus:outline-none font-medium`;
+const inputClass = `form-control w-full px-3 py-1.5 text-sm text-gray-500 bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-500 focus:outline-none font-medium`;
 
 interface EditListHeaderProps {
   name: string;
@@ -30,7 +30,7 @@ const EditListHeader = ({
         type="text"
         className={`${inputClass} text-gray-700 bg-white`}
         id="formInput"
-        placeholder="Add new"
+        placeholder="Enter name"
         autoFocus={true}
         value={name}
         onChange={onChange}
@@ -139,6 +139,7 @@ const List = ({ listId, name }: ListProps) => {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.stopPropagation;
     const { value } = e.target as HTMLInputElement;
     setNewName(value);
   };
@@ -156,11 +157,21 @@ const List = ({ listId, name }: ListProps) => {
   return (
     <>
       {isEditing ? (
-        <EditListHeader
-          name={newName}
-          onChange={handleInputChange}
-          handleSubmit={handleEditList}
-        />
+        <EditListHeader name={newName} onChange={handleInputChange}>
+          <div className="flex gap-x-1 items-center ml-2">
+            <button
+              className="bg-slate-200 hover:text-white hover:bg-slate-400"
+              onClick={handleEditList}
+            >
+              update
+            </button>
+            <XIcon
+              className="h-6 w-6 cursor-pointer"
+              aria-hidden="true"
+              onClick={handleEditing}
+            />
+          </div>
+        </EditListHeader>
       ) : (
         <ListHeader name={newName} handleClick={handleEditing} />
       )}
