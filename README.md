@@ -1,6 +1,6 @@
-## Innoloft Dashboard
+## Innoloft Sample Dashboard
 
-A new dashboard with which you can display and edit product information.
+A new sample dashboard with which you can display and edit product information.
 
 ## Features
 
