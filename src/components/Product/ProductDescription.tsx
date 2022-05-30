@@ -1,8 +1,8 @@
-import Dropdown from './Dropdown';
-import { ListGroup } from './List';
-import Tab from './Tab';
-import Tabs from './Tabs';
-import RichTextEditor from './TextEditor/RichTextEditor';
+import Dropdown from '../Dropdown';
+import { ListGroup } from '../List';
+import Tab from '../Tab';
+import Tabs from '../Tabs';
+import RichTextEditor from '../TextEditor/RichTextEditor';
 
 interface Props {
   product: ProductObject;

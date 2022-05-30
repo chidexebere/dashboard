@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
-import { useCachedAppConfig } from '../api/hooks';
-import { RootState } from '../appState/store';
-import Card from './Card';
+import { useCachedAppConfig } from '../../api/hooks';
+import { RootState } from '../../appState/store';
+import Card from '../Card';
 
 interface Props {
   product: ProductObject;

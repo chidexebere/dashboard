@@ -1,5 +1,5 @@
 import { LocationMarkerIcon } from '@heroicons/react/solid';
-import Card from './Card';
+import Card from '../Card';
 
 interface Props {
   product: ProductObject;
