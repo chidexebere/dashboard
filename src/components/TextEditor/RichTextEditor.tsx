@@ -1,18 +1,13 @@
-import React from 'react';
-import {
-  Editor,
-  EditorState,
-  RichUtils,
-  AtomicBlockUtils,
-  DraftEditorCommand,
-  convertToRaw,
-  ContentState,
-} from 'draft-js';
-import 'draft-js/dist/Draft.css';
-import { linkDecorator } from './Link';
-import { mediaBlockRenderer } from './Media';
-import { useEditProduct } from '../../api/hooks';
+import { useState } from 'react';
+import { ContentState, EditorState, convertToRaw } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import draftToHtml from 'draftjs-to-html';
+import { unescape } from 'html-escaper';
+import { Interweave } from 'interweave';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './style.css';
+import { useEditProduct } from '../../api/hooks';
+import { PencilIcon } from '@heroicons/react/solid';
 
 interface Props {
   contentFromAPI: string;
@@ -20,166 +15,78 @@ interface Props {
 
 const RichTextEditor = ({ contentFromAPI }: Props) => {
   const content = ContentState.createFromText(contentFromAPI);
-  const initialState = contentFromAPI
-    ? EditorState.createWithContent(content)
-    : EditorState.createEmpty(linkDecorator);
-  const [editorState, setEditorState] =
-    React.useState<EditorState>(initialState);
+  const [editorState, setEditorState] = useState(
+    EditorState.createWithContent(content),
+  );
+  const [convertedContent, setConvertedContent] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
 
   const editDescription = useEditProduct();
+
+  const handleEditing = () => {
+    setIsEditing(!isEditing);
+  };
+
+  const handleEditorChange = (state: EditorState) => {
+    setEditorState(state);
+    const rawContentState = convertToRaw(state.getCurrentContent());
+    const currentContentAsHTML = draftToHtml(rawContentState);
+    const unescapedHTML = unescape(currentContentAsHTML);
+    setConvertedContent(unescapedHTML);
+  };
 
   const handleSave = () => {
     const data = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
     editDescription.mutate(data);
-  };
-
-  const handleInsertImage = () => {
-    const src = prompt('Please enter the URL of your picture');
-    if (!src) {
-      return;
-    }
-    const contentState = editorState.getCurrentContent();
-    const contentStateWithEntity = contentState.createEntity(
-      'image',
-      'IMMUTABLE',
-      { src },
-    );
-    const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
-    const newEditorState = EditorState.set(editorState, {
-      currentContent: contentStateWithEntity,
-    });
-    return setEditorState(
-      AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, ' '),
-    );
-  };
-
-  const handleAddLink = () => {
-    const selection = editorState.getSelection();
-    const link = prompt('Please enter the URL of your link');
-    if (!link) {
-      setEditorState(RichUtils.toggleLink(editorState, selection, null));
-      return;
-    }
-    const content = editorState.getCurrentContent();
-    const contentWithEntity = content.createEntity('LINK', 'MUTABLE', {
-      url: link,
-    });
-    const newEditorState = EditorState.push(
-      editorState,
-      contentWithEntity,
-      'apply-entity',
-    );
-    const entityKey = contentWithEntity.getLastCreatedEntityKey();
-    setEditorState(RichUtils.toggleLink(newEditorState, selection, entityKey));
-  };
-
-  const handleKeyCommand = (command: DraftEditorCommand) => {
-    const newState = RichUtils.handleKeyCommand(editorState, command);
-    if (newState) {
-      setEditorState(newState);
-      return 'handled';
-    }
-    return 'not-handled';
-  };
-
-  const handleTogggleClick = (e: React.MouseEvent, inlineStyle: string) => {
-    e.preventDefault();
-    setEditorState(RichUtils.toggleInlineStyle(editorState, inlineStyle));
-  };
-
-  const handleBlockClick = (e: React.MouseEvent, blockType: string) => {
-    e.preventDefault();
-    setEditorState(RichUtils.toggleBlockType(editorState, blockType));
+    handleEditing();
   };
 
   return (
-    <div className="text-xs bg-white">
-      <div className="flex flex-col">
-        <div>
-          <button onMouseDown={(e) => handleBlockClick(e, 'header-one')}>
-            H1
-          </button>
-          <button onMouseDown={(e) => handleBlockClick(e, 'header-two')}>
-            H2
-          </button>
-          <button onMouseDown={(e) => handleBlockClick(e, 'header-three')}>
-            H3
-          </button>
-          <button onMouseDown={(e) => handleBlockClick(e, 'unstyled')}>
-            Normal
-          </button>
-          <button onMouseDown={(e) => handleTogggleClick(e, 'BOLD')}>
-            bold
-          </button>
-          <button onMouseDown={(e) => handleTogggleClick(e, 'UNDERLINE')}>
-            underline
-          </button>
-          <button onMouseDown={(e) => handleTogggleClick(e, 'ITALIC')}>
-            italic
-          </button>
-          <button onMouseDown={(e) => handleTogggleClick(e, 'STRIKETHROUGH')}>
-            strikthrough
-          </button>
-          <button onMouseDown={(e) => handleBlockClick(e, 'ordered-list-item')}>
-            Ordered List
-          </button>
-          <button
-            onMouseDown={(e) => handleBlockClick(e, 'unordered-list-item')}
-          >
-            Unordered List
-          </button>
-          <button
-            onMouseDown={(e) => {
-              e.preventDefault();
-              handleInsertImage();
+    <div className="text-sm bg-white lowercase text-left">
+      {isEditing ? (
+        <div className="flex flex-col">
+          <Editor
+            editorState={editorState}
+            onEditorStateChange={handleEditorChange}
+            wrapperClassName="p-4 border border-solid border-gray-200"
+            editorClassName="p-4 border-solid border-gray-200 bg-gray-100"
+            toolbarClassName="toolbar-class"
+            toolbar={{
+              options: ['inline', 'blockType', 'history'],
+              blockType: { inDropdown: false },
             }}
-          >
-            image
-          </button>
-          <button
-            disabled={editorState.getSelection().isCollapsed()}
-            onMouseDown={(e) => {
-              e.preventDefault();
-              handleAddLink();
-            }}
-          >
-            link
-          </button>
-        </div>
-        <div className="flex justify-between">
-          <button
-            className="text-sky-500"
-            disabled={editorState.getUndoStack().size <= 0}
-            onMouseDown={() => setEditorState(EditorState.undo(editorState))}
-          >
-            undo
-          </button>
-          <button
-            className="text-sky-500"
-            disabled={editorState.getRedoStack().size <= 0}
-            onMouseDown={() => setEditorState(EditorState.redo(editorState))}
-          >
-            redo
-          </button>
-        </div>
-      </div>
+          />
+          <div className="mt-2 px-8 py-4 border border-solid border-teal-200 overflow-auto ">
+            <Interweave content={convertedContent} />
+          </div>
+          <div className="p-4 flex justify-between">
+            <button
+              className="py-2 px-4 border border-solid text-red-400 hover:text-red-600"
+              onClick={handleEditing}
+            >
+              cancel
+            </button>
 
-      <Editor
-        editorState={editorState}
-        onChange={setEditorState}
-        handleKeyCommand={handleKeyCommand}
-        blockRendererFn={mediaBlockRenderer}
-      />
-      <button
-        className="inline-block my-1 px-6 py-2.5 bg-amber-400 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-amber-500 hover:shadow-lg"
-        type="button"
-        onClick={(e) => {
-          e.preventDefault();
-          handleSave();
-        }}
-      >
-        save
-      </button>
+            <button
+              className="py-2 px-4 bg-amber-200 hover:text-white hover:bg-amber-400"
+              onClick={handleSave}
+            >
+              save
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="px-4 py-2 border border-solid border-gray-200 overflow-auto text-gray-600">
+          <div className="pb-2 flex justify-end">
+            <PencilIcon
+              className="h-6 w-6 cursor-pointer text-gray-400"
+              aria-hidden="true"
+              onClick={handleEditing}
+            />
+          </div>
+          <Interweave content={contentFromAPI} />
+        </div>
+      )}
     </div>
   );
 };

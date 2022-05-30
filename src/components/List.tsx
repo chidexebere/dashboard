@@ -107,7 +107,7 @@ const CreateList = ({ newLists, setNewLists }: CreateListProps) => {
     <EditListHeader name={name} onChange={handleInputChange}>
       <div className="flex gap-x-1 items-center ml-2">
         <button
-          className="text-white bg-amber-400 hover:bg-amber-400"
+          className="py-2 px-4 bg-amber-400 hover:text-white  hover:bg-amber-400"
           onClick={handleAddList}
         >
           Add
@@ -160,7 +160,7 @@ const List = ({ listId, name }: ListProps) => {
         <EditListHeader name={newName} onChange={handleInputChange}>
           <div className="flex gap-x-1 items-center ml-2">
             <button
-              className="bg-slate-200 hover:text-white hover:bg-slate-400"
+              className="py-2 px-4 bg-slate-200 hover:text-white hover:bg-slate-400"
               onClick={handleEditList}
             >
               update

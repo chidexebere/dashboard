@@ -1,29 +1,4 @@
-
-button {
-  background-color: white;
-  padding: 0.5rem 1rem;
-  color: #666;
-}
-
-button:hover {
-  color: #000;
-}
-
-.DraftEditor-root {
-  border: 1px solid #eee;
-  margin-top: 1rem;
-  border-radius: 0.5rem;
-}
-
-.DraftEditor-editorContainer {
-  padding: 1rem;
-  font-size: 0.75rem; 
-  line-height: 1rem;
-}
-
-.public-DraftEditor-content {
-  font-size: 0.875rem; 
-  line-height: 1.25rem;
-  text-transform: lowercase;
+.toolbar-class {
+  border: 1px solid #ccc;
 }
 
